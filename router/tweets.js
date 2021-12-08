@@ -1,36 +1,22 @@
 import express from 'express';
 import 'express-async-errors';
-// 매우 위험!!
-let tweets = [
-  {
-    id: '1',
-    text: '화이팅!',
-    createdAt: Date.now().toString(),
-    name: 'Bob',
-    username: 'bob',
-    url: 'https://widgetwhats.com/app/uploads/2019/11/free-profile-photo-whatsapp-1.png',
-  },
-  {
-    id: '2',
-    text: '예스!',
-    createdAt: Date.now().toString(),
-    name: 'Ellie',
-    username: 'ellie',
-  },
-];
+import * as tweetRepository from '../data/tweet.js';
+
 const router = express.Router();
 
 // GET /tweets
 // GET /tweets?username=:username
 router.get('/', (req, res, next) => {
   const username = req.query.username;
-  const data = username ? tweets.filter((t) => t.username == username) : tweets;
+  const data = username
+    ? tweetRepository.getAllByUsername(username)
+    : tweetRepository.getAll();
   res.status(200).json(data);
 });
 // GET  /tweets/:id
 router.get('/:id', (req, res, next) => {
   const id = req.params.id;
-  const tweet = tweets.find((t) => t.id === id);
+  const tweet = tweetRepository.getById(id);
   if (tweet) {
     res.status(200).json(tweet);
   } else {
@@ -40,21 +26,15 @@ router.get('/:id', (req, res, next) => {
 // POST /tweets
 router.post('/', (req, res, next) => {
   const { text, name, username } = req.body;
-  const tweet = {
-    id: Date.now().toString(),
-    text,
-    createdAt: new Date(),
-    name,
-    username,
-  };
-  tweets = [tweet, ...tweets]; // 괭장히 위험 한 코드
+  const tweet = tweetRepository.create(text, name, username);
+  // 괭장히 위험 한 코드
   res.status(201).json(tweet);
 });
 // PUT  /tweets/:id
 router.put('/:id', (req, res, next) => {
   const id = req.params.id;
   const text = req.body.text;
-  const tweet = tweets.find((t) => t.id === id);
+  const tweet = tweetRepository.update(id, text);
   if (tweet) {
     tweet.text = text;
     res.status(200).json(tweet);
@@ -65,7 +45,7 @@ router.put('/:id', (req, res, next) => {
 // DELETE /tweets/:id
 router.delete('/:id', (req, res, next) => {
   const id = req.params.id;
-  tweets = tweets.filter((t) => t.id !== id);
+  tweetRepository.remove(id);
   res.sendStatus(204);
 });
 export default router;
