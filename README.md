@@ -11,7 +11,8 @@
 ---
 
 | HomeWork
-\*\* 풀이
+
+> > 풀이
 
 - controller : get & getId & post & put & delete
 - module 을 이용한 code를 분할!
@@ -26,7 +27,7 @@
 
 [node json file 이용하기.](https://nkaushik.com/javascript/json-module-import-error-es6/)
 
-\*\* 문제점
+> > 문제점
 
 - data 사용시 해당 문제점 발견
   ExperimentalWarning: Importing JSON modules is an experimental feature.
@@ -36,3 +37,6 @@
 ---
 
 | Solution
+
+- 읽고 쓰는 순서대로 data/tweet.js 파일 안에 함수로 만들어 준다.
+- export default 를 쓰지 않고 하나의 파일안에 여러 함수를 넣어준다.

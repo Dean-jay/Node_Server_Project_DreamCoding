@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 import express from 'express';
 import 'express-async-errors';
 import * as tweetController from '../controller/tweet.js';
@@ -19,4 +17,3 @@ router.put('/:id', tweetController.updateTweet);
 router.delete('/:id', tweetController.removeTweet);
 
 export default router;
->>>>>>> solution
