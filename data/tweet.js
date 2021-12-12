@@ -1,7 +1,7 @@
 // 순수하게 데이터를 가지고 있고 읽고 쓰기만 가능
 let tweets = [
   {
-    id: '1',
+    id: '',
     text: '화이팅!',
     createdAt: Date.now().toString(),
     name: 'Bob',
