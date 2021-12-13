@@ -77,6 +77,6 @@ npm i express-validator
 
 ### JWT
 
-1. user 한명일 때 서버구현
-2. user가 여러명 일때
-3. MVC : view, controller, model 구현
+1. [x]user 한명일 때 서버구현
+2. [x]user가 여러명 일때
+3. [ ]MVC : view, controller, model 구현

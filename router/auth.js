@@ -2,12 +2,14 @@ import express from 'express';
 import 'express-async-errors';
 import jwt from 'jsonwebtoken';
 
-let user = {
-  username: 'ellie',
-  password: '1234',
-  name: 'Ellie',
-  email: 'ellie@gmail.com',
-};
+let users = [
+  {
+    username: 'ellie',
+    password: '1234',
+    name: 'Ellie',
+    email: 'ellie@gmail.com',
+  },
+];
 let token = '';
 // Q! JWT: sign load에 들어가야될 정보는 무엇 무엇이 있을까?
 function makeToken(username, password, name, email, url) {
@@ -29,17 +31,14 @@ const router = express.Router();
 // POST /auth/signup
 router.post('/signup', (req, res, next) => {
   const { username, password, name, email, url } = req.body;
+  const user = { username, password, name, email, url };
   const token = makeToken(username, password, name, email, url);
   if (token) {
     res.status(201).json({ token, username });
-    // Q! 왜 username 출력이 안될까?
+    users = [user, ...users];
   } else {
     res.status(404).json({ message: `User name:${name} not found` });
   }
-  // Token Check
-  // jwt.verify(token, password, (error, decoded) => {
-  //   console.log(error, decoded);
-  // });
 });
 // POST /auth/login
 router.post('/login', (req, res, next) => {
@@ -48,7 +47,10 @@ router.post('/login', (req, res, next) => {
   // Q! 많고 많은 사용자 중에서 딱 한명의 개인을 찾는 일은 어떻게 할까? A! filter!
   // Q! Token 은 서버에서 들고 있는게 맞는가?
   const token = makeToken(username, password);
-  if (user.username === username && user.password === password) {
+  const user = users.filter(
+    (user) => user.username === username && user.password === password
+  );
+  if (user) {
     res.status(201).json({ token, username });
   } else {
     res.status(401).json({ message: 'fali' });
@@ -56,8 +58,9 @@ router.post('/login', (req, res, next) => {
 });
 // GET /auth/me
 router.get('/me', (req, res, next) => {
-  // front 에서 jwt_token 을 글로벌로 받아서 처리
-  // 이번에는 postman에서
+  // token 을 글로벌로 받아서 처리
+  // postman test에서  set global value를 해줌
   res.status(200).json({ token });
+  // Q! token 처리를 어떻게 해야 깔끔할까?
 });
 export default router;
