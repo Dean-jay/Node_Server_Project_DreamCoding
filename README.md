@@ -70,3 +70,13 @@ npm i express-validator
 ### Contract Testing : Client-Server
 
 ### Proto-base
+
+## 5. Authentication
+
+### bcrypt
+
+### JWT
+
+1. user 한명일 때 서버구현
+2. user가 여러명 일때
+3. MVC : view, controller, model 구현
