@@ -1,10 +1,10 @@
 let users = [
   {
-    id: '2',
-    username: 'jay',
-    password: 'abcd1234',
-    name: 'Jay',
-    email: 'jay@gmail.com',
+    id: '1639541001783',
+    username: 'bob',
+    name: 'Bob',
+    email: 'bob@gmail.com',
+    password: '$2b$12$UFmtaFZXZqOeXPL7ZHkstOIkCftSgB8yVzhB1No0J9gk2TAoZu2.S',
   },
 ];
 // 아 password를 bcrypt 으로 변환 해주어야 한다.

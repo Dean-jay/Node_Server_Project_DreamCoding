@@ -23,7 +23,7 @@ export async function signup(req, res, next) {
     url,
   });
   const token = createJwtToken(userId);
-  res.status(201).json({ token, username });
+  res.status(201).json({ token, username, password: hashed });
 }
 
 export async function login(req, res) {
@@ -49,5 +49,7 @@ export async function me(req, res, next) {
   if (!user) {
     return res.status(404).json({ message: 'User not found' });
   }
-  res.status(200).json({ token: req.token, username: user.username });
+  res
+    .status(200)
+    .json({ token: req.token, username: user.username, userid: req.userId });
 }
