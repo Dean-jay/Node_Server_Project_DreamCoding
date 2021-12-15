@@ -1,4 +1,12 @@
-let users = [];
+let users = [
+  {
+    id: '2',
+    username: 'jay',
+    password: 'abcd1234',
+    name: 'Jay',
+    email: 'jay@gmail.com',
+  },
+];
 // 아 password를 bcrypt 으로 변환 해주어야 한다.
 
 export async function findByUsername(username) {
